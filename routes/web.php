@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProdutosController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,25 +14,14 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', HomeController::class {
-    return view('welcome');
-});
 
-Route::get('produtos/inserir', function () {
-    return "Página de inserir produto";
-});
+Route::get('/', HomeController::class);
+
+Route::get('produtos/inserir', [ProdutosController::class, 'create']);
+
+
 //para passar um parametro opcional onde ele não obrigatoriamente está presente eu utilizo "?" no fim do parametro para indicar como opcional, e no método passo sua variável como nulo
-Route::get('produtos/{nome}/{valor?}', function ($nome, $valor = null) {
-    //se valor existe
-    if($valor){
-        return "O nome do produto é $nome e seu valor é $valor";
-    }else{
-        return "O nome do produto é $nome";
-    }
-    
-});
+Route::get('produtos/{nome}/{valor?}', [ProdutosController::class, 'show']);
 
-Route::get('users', function () {
-    return 'usuário';
-});
+Route::get('produtos', [ProdutosController::class, 'index']);
 
